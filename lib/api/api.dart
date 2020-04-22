@@ -44,4 +44,20 @@ class Api {
     } else
       throw Exception(body['message']);
   }
+  
+  static Future getPeriods() async {
+    final userData = Global.userData;
+
+    final response = await http.post(
+      '${userData.schoolUrl}/JceDiary/GetCurrentPeriods',
+      headers: getCookieHeaders(),
+    );
+
+    final body = json.decode(response.body);
+
+    if (body['success']) {
+      return ScheduleData.fromJson(body['data']);
+    } else
+      throw Exception(body['message']);
+  }
 }
