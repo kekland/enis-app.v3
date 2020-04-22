@@ -1,15 +1,15 @@
 class EvaluationData {
   final String name;
   final String shortName;
-  final String evaluationId;
+  final String id;
 
-  EvaluationData({this.name, this.shortName, this.evaluationId});
+  EvaluationData({this.name, this.shortName, this.id});
 
   factory EvaluationData.fromJson(Map<String, dynamic> json) {
     return EvaluationData(
       name: json['Name'],
       shortName: json['ShortName'],
-      evaluationId: json['Id'],
+      id: json['Id'],
     );
   }
 }
@@ -59,4 +59,54 @@ class QuarterData {
       ),
     );
   }
+}
+
+class EvaluationRubricData {
+  final String name;
+  final String description;
+  final int score;
+  final int maxScore;
+
+  EvaluationRubricData({
+    this.name,
+    this.description,
+    this.score,
+    this.maxScore,
+  });
+
+  factory EvaluationRubricData.fromJson(Map<String, dynamic> json) {
+    return EvaluationRubricData(
+      name: json['Name'],
+      description: json['Description'],
+      score: (json['Score'] as num).toInt(),
+      maxScore: (json['MaxScore'] as num).toInt(),
+    );
+  }
+}
+
+class EvaluationExpandedData {
+  final EvaluationData evaluationData;
+  final List<EvaluationRubricData> rubricData;
+
+  EvaluationExpandedData({this.evaluationData, this.rubricData});
+
+  factory EvaluationExpandedData.fromJson(
+    List<Map<String, dynamic>> json, [
+    EvaluationData evaluationData,
+  ]) {
+    return EvaluationExpandedData(
+      evaluationData: evaluationData,
+      rubricData: json
+          .map((rubric) => EvaluationRubricData.fromJson(rubric))
+          .cast<EvaluationRubricData>()
+          .toList(),
+    );
+  }
+}
+
+class SubjectExpandedData {
+  final SubjectData subjectData;
+  final List<EvaluationExpandedData> evaluationData;
+
+  SubjectExpandedData({this.subjectData, this.evaluationData});
 }

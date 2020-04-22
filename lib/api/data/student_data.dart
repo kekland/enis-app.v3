@@ -1,11 +1,22 @@
-class PeriodsData {
-  final List<String> identifiers;
+class Period {
+  final String id;
 
-  PeriodsData({this.identifiers});
+  Period({this.id});
+
+  factory Period.fromJson(Map<String, dynamic> json) {
+    return Period(id: json['Id']);
+  }
+}
+
+class PeriodsData {
+  final List<Period> periods;
+
+  PeriodsData({this.periods});
 
   factory PeriodsData.fromJson(List<Map<String, dynamic>> json) {
     return PeriodsData(
-      identifiers: json.map((period) => period['Id']).cast<String>().toList(),
+      periods:
+          json.map((period) => Period.fromJson(period)).cast<Period>().toList(),
     );
   }
 }
@@ -36,7 +47,7 @@ class ParallelsData {
   }
 }
 
-class _Class {
+class StudentClass {
   final String id;
   final String name;
   final String schoolYearName;
@@ -44,7 +55,7 @@ class _Class {
   final String letterName;
   final String language;
 
-  _Class({
+  StudentClass({
     this.id,
     this.name,
     this.schoolYearName,
@@ -53,8 +64,8 @@ class _Class {
     this.language,
   });
 
-  factory _Class.fromJson(Map<String, dynamic> json) {
-    return _Class(
+  factory StudentClass.fromJson(Map<String, dynamic> json) {
+    return StudentClass(
       id: json['Id'],
       language: json['LanguageName'],
       letterName: json['LetterName'],
@@ -66,14 +77,14 @@ class _Class {
 }
 
 class ClassData {
-  final List<_Class> classes;
+  final List<StudentClass> classes;
 
   ClassData({this.classes});
 
   factory ClassData.fromJson(List<Map<String, dynamic>> json) {
     return ClassData(
       classes:
-          json.map((_class) => _Class.fromJson(_class)).cast<_Class>().toList(),
+          json.map((_class) => StudentClass.fromJson(_class)).cast<StudentClass>().toList(),
     );
   }
 }
@@ -109,7 +120,7 @@ class StudentsData {
 
 class LoadedStudentData {
   final Student data;
-  final _Class classData;
+  final StudentClass classData;
   final Parallel parallelData;
 
   LoadedStudentData({
