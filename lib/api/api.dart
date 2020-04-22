@@ -4,23 +4,18 @@ import 'package:enis/api/data/diary_data.dart';
 import 'package:enis/api/data/schedule_data.dart';
 import 'package:enis/api/data/student_data.dart';
 import 'package:enis/api/data/user_data.dart';
-import 'package:http/http.dart' as http;
+import 'package:requests/requests.dart';
 
 import 'global.dart';
 
 class Api {
-  static Map<String, String> getCookieHeaders() {
-    final userToken = Global.sessionId;
-
-    return {'cookie': 'UserSessionKey=$userToken'};
-  }
-
   static Future<dynamic> makeRequest(
     String path, {
     dynamic body,
     bool hasAuth = true,
     UserData userData,
     Map<String, String> additionalHeaders,
+    bool saveCookies = true,
   }) async {
     final _userData = userData ?? Global.userData;
 
@@ -30,17 +25,17 @@ class Api {
       headers.addAll(additionalHeaders);
     }
 
-    if (hasAuth) {
-      headers.addAll(getCookieHeaders());
-    }
-
-    final response = await http.post(
+    final response = await Requests.post(
       '${_userData.schoolUrl}$path',
       body: body,
       headers: headers,
+      bodyEncoding: RequestBodyEncoding.JSON,
+      persistCookies: true,
     );
 
-    final responseBody = json.decode(response.body);
+    response.raiseForStatus();
+
+    final responseBody = response.json();
 
     if (responseBody['success']) {
       return responseBody;
@@ -58,6 +53,7 @@ class Api {
       },
       hasAuth: false,
       userData: userData,
+      saveCookies: true,
     );
 
     Global.userData = userData;
@@ -139,7 +135,7 @@ class Api {
   }
 
   static Future<void> loadJceDiaryUrl({String url}) async {
-    await http.post(url, headers: getCookieHeaders());
+    await Requests.post(url);
   }
 
   static Future<QuarterData> getSubjectsResults({String url}) async {

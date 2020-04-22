@@ -52,7 +52,7 @@ class QuarterData {
 
   QuarterData({this.subjects});
 
-  factory QuarterData.fromJson(List<Map<String, dynamic>> json) {
+  factory QuarterData.fromJson(List<dynamic> json) {
     return QuarterData(
       subjects: json.map(
         (subject) => SubjectData.fromJson(subject),
@@ -91,7 +91,7 @@ class EvaluationExpandedData {
   EvaluationExpandedData({this.evaluationData, this.rubricData});
 
   factory EvaluationExpandedData.fromJson(
-    List<Map<String, dynamic>> json, [
+    List<dynamic> json, [
     EvaluationData evaluationData,
   ]) {
     return EvaluationExpandedData(

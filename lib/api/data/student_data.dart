@@ -13,7 +13,7 @@ class PeriodsData {
 
   PeriodsData({this.periods});
 
-  factory PeriodsData.fromJson(List<Map<String, dynamic>> json) {
+  factory PeriodsData.fromJson(List<dynamic> json) {
     return PeriodsData(
       periods:
           json.map((period) => Period.fromJson(period)).cast<Period>().toList(),
@@ -37,7 +37,7 @@ class ParallelsData {
 
   ParallelsData({this.parallels});
 
-  factory ParallelsData.fromJson(List<Map<String, dynamic>> json) {
+  factory ParallelsData.fromJson(List<dynamic> json) {
     return ParallelsData(
       parallels: json
           .map((parallel) => Parallel.fromJson(parallel))
@@ -81,7 +81,7 @@ class ClassData {
 
   ClassData({this.classes});
 
-  factory ClassData.fromJson(List<Map<String, dynamic>> json) {
+  factory ClassData.fromJson(List<dynamic> json) {
     return ClassData(
       classes:
           json.map((_class) => StudentClass.fromJson(_class)).cast<StudentClass>().toList(),
@@ -108,7 +108,7 @@ class StudentsData {
 
   StudentsData({this.students});
 
-  factory StudentsData.fromJson(List<Map<String, dynamic>> json) {
+  factory StudentsData.fromJson(List<dynamic> json) {
     return StudentsData(
       students: json
           .map((student) => Student.fromJson(student))

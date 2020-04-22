@@ -3,7 +3,7 @@ class ScheduleData {
 
   ScheduleData({this.days});
 
-  factory ScheduleData.fromJson(List<Map<String, dynamic>> json) {
+  factory ScheduleData.fromJson(List<dynamic> json) {
     List<ScheduleDataForDay> days;
 
     for (int i = 0; i < 6; i++)

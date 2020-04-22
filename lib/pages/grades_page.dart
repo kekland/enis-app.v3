@@ -1,5 +1,8 @@
+import 'package:enis/api/global.dart';
+import 'package:enis/api/hl_api.dart';
 import 'package:enis/components/subject_widget.dart';
 import 'package:enis/components/surface.dart';
+import 'package:enis/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:enis/extensions.dart';
 
@@ -17,11 +20,33 @@ class _GradesPageState extends State<GradesPage>
   void initState() {
     controller = new TabController(length: 4, vsync: this);
     isPickerVisible = false;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      loadStudentData();
+    });
+
     super.initState();
+  }
+
+  loadStudentData() async {
+    if (Global.students == null) {
+      runAsyncTask(
+        context: context,
+        task: () async {
+          Global.students = await HighLevelApi.getAllStudents();
+          setState(() {});
+        },
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (Global.students == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     return Stack(
       children: <Widget>[
         SingleChildScrollView(

@@ -39,8 +39,8 @@ void showScaffoldError(BuildContext context, dynamic e) {
   ));
 }
 
-showLoadingDialog(BuildContext context, [Function onClosed]) {
-  showDialog(
+Future showLoadingDialog(BuildContext context) {
+  return showDialog(
     context: context,
     barrierDismissible: false,
     builder: (_) => Center(
@@ -55,9 +55,7 @@ showLoadingDialog(BuildContext context, [Function onClosed]) {
         child: CircularProgressIndicator(),
       ),
     ),
-  ).then((_) {
-    if (onClosed != null) onClosed();
-  });
+  );
 }
 
 Future<void> runAsyncTask({
@@ -66,11 +64,15 @@ Future<void> runAsyncTask({
 }) async {
   bool shouldPop = true;
   try {
-    showLoadingDialog(context, () => shouldPop = false);
+    showLoadingDialog(context).then((_) => shouldPop = false);
     await task();
   } catch (e) {
     showScaffoldError(context, e);
   } finally {
-    if (shouldPop) Navigator.pop(context);
+    if (shouldPop) {
+      Future.delayed(Duration.zero, () {
+        Navigator.of(context).pop(true);
+      });
+    }
   }
 }

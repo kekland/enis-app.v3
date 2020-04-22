@@ -7,7 +7,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Global {
   static UserData userData;
   static SharedPreferences prefs;
-  static String sessionId;
   static List<LoadedStudentData> students;
 
   static Future<void> load() async {
