@@ -142,16 +142,16 @@ class Api {
     await http.post(url, headers: getCookieHeaders());
   }
 
-  static Future<QuarterData> getSubjectsResults({String jceUrl}) async {
+  static Future<QuarterData> getSubjectsResults({String url}) async {
     final body =
         await makeRequest('/Jce/Diary/GetSubjects', additionalHeaders: {
-      "Referer": jceUrl,
+      "Referer": url,
     });
 
     return QuarterData.fromJson(body['data']);
   }
 
-  static Future<EvaluationExpandedData> loadEvaluationResults({
+  static Future<EvaluationExpandedData> getEvaluationResults({
     SubjectData subject,
     EvaluationData evaluation,
   }) async {
