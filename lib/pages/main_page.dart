@@ -3,7 +3,24 @@ import 'package:enis/pages/timetable_page.dart';
 import 'package:flutter/material.dart';
 import 'package:enis/extensions.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  final List<Widget> bodyViews = [
+    GradesPage(),
+    TimetablePage(),
+  ];
+  int currentPage = 0;
+
+  @override
+  void initState() {
+      currentPage = 0;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,11 +35,13 @@ class MainPage extends StatelessWidget {
           ),
         ],
       ),
-      body: TimetablePage(),
+      body: bodyViews[currentPage],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: context.theme.primaryColor,
         selectedItemColor: context.theme.accentColor,
         elevation: 0.0,
+        onTap: (i) => setState(() => currentPage = i),
+        currentIndex: currentPage,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
