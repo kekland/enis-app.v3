@@ -46,3 +46,17 @@ class SubjectData {
     );
   }
 }
+
+class QuarterData {
+  final List<SubjectData> subjects;
+
+  QuarterData({this.subjects});
+
+  factory QuarterData.fromJson(List<Map<String, dynamic>> json) {
+    return QuarterData(
+      subjects: json.map(
+        (subject) => SubjectData.fromJson(subject),
+      ),
+    );
+  }
+}
