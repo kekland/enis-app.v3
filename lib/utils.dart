@@ -3,15 +3,35 @@ import 'package:enis/extensions.dart';
 
 void showScaffoldError(BuildContext context, dynamic e) {
   Scaffold.of(context).showSnackBar(SnackBar(
-    content: Text(e.message ?? 'Произошла ошибка'),
+    content: Text(
+      'Произошла ошибка',
+      style: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+    backgroundColor: Colors.red,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(12.0),
+    ),
+    behavior: SnackBarBehavior.floating,
     action: SnackBarAction(
       label: 'Подробнее',
+      textColor: Colors.white,
       onPressed: () {
         showDialog(
           context: context,
           builder: (_) => AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
             title: Text('Произошла ошибка'),
             content: Text(e.toString()),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Закрыть'),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
           ),
         );
       },
@@ -51,6 +71,6 @@ Future<void> runAsyncTask({
   } catch (e) {
     showScaffoldError(context, e);
   } finally {
-    if (shouldPop) Navigator.of(context).pop();
+    if (shouldPop) Navigator.pop(context);
   }
 }

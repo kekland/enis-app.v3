@@ -3,12 +3,21 @@ import 'package:enis/api/hl_api.dart';
 import 'package:enis/utils.dart';
 import 'package:flutter/material.dart';
 
-class IntroPage extends StatefulWidget {
+class IntroPage extends StatelessWidget {
   @override
-  _IntroPageState createState() => _IntroPageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: IntroPageLoader(),
+    );
+  }
 }
 
-class _IntroPageState extends State<IntroPage> {
+class IntroPageLoader extends StatefulWidget {
+  @override
+  _IntroPageLoaderState createState() => _IntroPageLoaderState();
+}
+
+class _IntroPageLoaderState extends State<IntroPageLoader> {
   @override
   void initState() {
     super.initState();
@@ -34,6 +43,8 @@ class _IntroPageState extends State<IntroPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Text('Loading...'));
+    return Center(
+      child: CircularProgressIndicator(),
+    );
   }
 }

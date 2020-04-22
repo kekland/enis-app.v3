@@ -9,7 +9,7 @@ class UserData {
     this.schoolUrl,
   });
 
-  factory UserData.fromJson(Map<String, String> json) {
+  factory UserData.fromJson(Map<String, dynamic> json) {
     return new UserData(
       username: json['username'],
       password: json['password'],
@@ -17,7 +17,7 @@ class UserData {
     );
   }
 
-  Map<String, String> toJson() => {
+  Map<String, dynamic> toJson() => {
         "username": username,
         "password": password,
         "schoolUrl": schoolUrl,
