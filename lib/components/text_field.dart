@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BeautifulTextField extends StatelessWidget {
+  final TextEditingController controller;
   final BorderRadius borderRadius;
   final String hint;
   final IconData icon;
@@ -10,6 +11,7 @@ class BeautifulTextField extends StatelessWidget {
     this.borderRadius,
     this.hint,
     this.icon,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -24,6 +26,7 @@ class BeautifulTextField extends StatelessWidget {
         vertical: 4.0,
       ),
       child: TextField(
+        controller: controller,
         decoration: InputDecoration(
           prefixIcon: Icon(icon),
           labelText: hint,
@@ -38,6 +41,8 @@ class BeautifulSelect extends StatelessWidget {
   final BorderRadius borderRadius;
   final String hint;
   final IconData icon;
+  final String selected;
+  final Function(String) onSelected;
   final List<DropdownMenuItem> items;
 
   const BeautifulSelect({
@@ -46,6 +51,8 @@ class BeautifulSelect extends StatelessWidget {
     this.hint,
     this.icon,
     this.items,
+    this.selected,
+    this.onSelected,
   }) : super(key: key);
 
   @override
@@ -71,8 +78,9 @@ class BeautifulSelect extends StatelessWidget {
               items: items,
               underline: Container(),
               hint: Text(hint),
-              onChanged: (s) {},
+              onChanged: (v) => onSelected(v),
               isExpanded: true,
+              value: selected,
             ),
           ),
         ],

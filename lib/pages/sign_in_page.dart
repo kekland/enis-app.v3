@@ -1,9 +1,58 @@
+import 'package:enis/api/data/user_data.dart';
+import 'package:enis/api/hl_api.dart';
 import 'package:enis/api/schools.dart';
 import 'package:enis/components/text_field.dart';
+import 'package:enis/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
+  @override
+  _SignInPageState createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  TextEditingController usernameController;
+  TextEditingController passwordController;
+  String selectedSchoolKey;
+
+  initState() {
+    usernameController = TextEditingController();
+    passwordController = TextEditingController();
+    selectedSchoolKey = null;
+
+    super.initState();
+  }
+
+  dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  signIn() {
+    runAsyncTask(
+      context: context,
+      task: () async {
+        await HighLevelApi.signIn(
+          userData: UserData(
+            username: usernameController.text,
+            password: passwordController.text,
+            schoolUrl: schools[selectedSchoolKey],
+          ),
+        );
+
+        Navigator.of(context).pushReplacementNamed('/main');
+      },
+    );
+  }
+
+  bool get isValid {
+    return usernameController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        selectedSchoolKey != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +123,7 @@ class SignInPage extends StatelessWidget {
                 child: RaisedButton.icon(
                   icon: Icon(Icons.chevron_right),
                   label: Text('Войти'),
-                  onPressed: () {},
+                  onPressed: isValid ? signIn : null,
                   color: Colors.green,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),

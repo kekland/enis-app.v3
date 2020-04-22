@@ -1,3 +1,4 @@
+import 'package:enis/pages/intro_page.dart';
 import 'package:enis/pages/main_page.dart';
 import 'package:enis/pages/sign_in_page.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,12 @@ class MyApp extends StatelessWidget {
         bottomAppBarColor: Colors.black,
         canvasColor: Color(0xFF0C0C0C),
       ),
-      home: MainPage(),
+      home: IntroPage(),
+      routes: {
+        '/intro': (context) => IntroPage(),
+        '/auth': (context) => SignInPage(),
+        '/main': (context) => MainPage(),
+      },
     );
   }
 }
