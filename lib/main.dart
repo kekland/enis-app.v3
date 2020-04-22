@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       theme: ThemeData(
         primaryColor: Colors.white,
         accentColor: Colors.green,
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         bottomAppBarColor: Colors.black,
         canvasColor: Color(0xFF0C0C0C),
       ),
-      home: MainPage(),
+      home: SignInPage(),
     );
   }
 }

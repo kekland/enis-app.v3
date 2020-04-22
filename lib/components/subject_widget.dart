@@ -6,7 +6,6 @@ class SubjectWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
       width: double.infinity,
       decoration: BoxDecoration(
         color: context.theme.cardColor,
@@ -19,25 +18,47 @@ class SubjectWidget extends StatelessWidget {
           )
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Физическая культура',
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.w500,
+      child: Material(
+        type: MaterialType.transparency,
+        child: InkWell(
+          onTap: () {},
+          borderRadius: BorderRadius.circular(12.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12.0),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Физическая культура',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 4.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          PercentWidget(percentage: 90.87),
+                          GradeWidget(grade: 5),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                LinearProgressIndicator(
+                  backgroundColor: Colors.yellow.withOpacity(0.25),
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+                  value: 90.87 / 100.0,
+                ),
+              ],
             ),
           ),
-          SizedBox(height: 4.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              PercentWidget(percentage: 90.87),
-              GradeWidget(grade: 5),
-            ],
-          ),
-        ],
+        ),
       ),
     );
   }
