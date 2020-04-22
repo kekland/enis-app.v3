@@ -1,20 +1,38 @@
+import 'package:enis/pages/main_page.dart';
 import 'package:enis/pages/sign_in_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      themeMode: ThemeMode.light,
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primaryColor: Colors.white,
+        accentColor: Colors.green,
+        brightness: Brightness.light,
+      ),
+      darkTheme: ThemeData(
+        primaryColor: Colors.black,
         accentColor: Colors.green,
         brightness: Brightness.dark,
+        cardColor: Colors.black,
+        bottomAppBarColor: Colors.black,
+        canvasColor: Color(0xFF0C0C0C),
       ),
-      home: SignInPage(),
+      home: MainPage(),
     );
   }
 }
