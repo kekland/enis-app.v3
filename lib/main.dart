@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.green,
+        accentColor: Colors.green,
         brightness: Brightness.dark,
       ),
       home: SignInPage(),
