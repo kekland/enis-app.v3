@@ -1,3 +1,4 @@
+import 'package:enis/api/schools.dart';
 import 'package:enis/components/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -51,6 +52,21 @@ class SignInPage extends StatelessWidget {
                 borderRadius: BorderRadius.vertical(
                   bottom: Radius.circular(12.0),
                 ),
+              ),
+              SizedBox(height: 16.0),
+              BeautifulSelect(
+                borderRadius: BorderRadius.circular(12.0),
+                hint: 'Школа',
+                icon: Icons.school,
+                items: schools.keys
+                    .map(
+                      (key) => DropdownMenuItem(
+                        child: Text(key),
+                        value: key,
+                      ),
+                    )
+                    .cast<DropdownMenuItem>()
+                    .toList(),
               ),
               SizedBox(height: 16.0),
               SizedBox(

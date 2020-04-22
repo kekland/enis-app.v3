@@ -1,4 +1,5 @@
 import 'package:enis/pages/grades_page.dart';
+import 'package:enis/pages/timetable_page.dart';
 import 'package:flutter/material.dart';
 import 'package:enis/extensions.dart';
 
@@ -17,7 +18,7 @@ class MainPage extends StatelessWidget {
           ),
         ],
       ),
-      body: GradesPage(),
+      body: TimetablePage(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: context.theme.primaryColor,
         selectedItemColor: context.theme.accentColor,

@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'eNIS',
       themeMode: ThemeMode.dark,
       theme: ThemeData(
         primaryColor: Colors.white,
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         bottomAppBarColor: Colors.black,
         canvasColor: Color(0xFF0C0C0C),
       ),
-      home: SignInPage(),
+      home: MainPage(),
     );
   }
 }
