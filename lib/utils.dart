@@ -23,15 +23,17 @@ showLoadingDialog(BuildContext context, [Function onClosed]) {
   showDialog(
     context: context,
     barrierDismissible: false,
-    builder: (_) => Container(
-      width: 72.0,
-      height: 72.0,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: context.theme.cardColor,
+    builder: (_) => Center(
+      child: Container(
+        width: 72.0,
+        height: 72.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: context.theme.cardColor,
+        ),
+        alignment: Alignment.center,
+        child: CircularProgressIndicator(),
       ),
-      alignment: Alignment.center,
-      child: CircularProgressIndicator(),
     ),
   ).then((_) {
     if (onClosed != null) onClosed();
