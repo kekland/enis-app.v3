@@ -6,6 +6,7 @@ class BeautifulTextField extends StatelessWidget {
   final BorderRadius borderRadius;
   final String hint;
   final IconData icon;
+  final bool obscureInput;
 
   const BeautifulTextField({
     Key key,
@@ -13,6 +14,7 @@ class BeautifulTextField extends StatelessWidget {
     this.hint,
     this.icon,
     this.controller,
+    this.obscureInput = false,
   }) : super(key: key);
 
   @override
@@ -30,6 +32,7 @@ class BeautifulTextField extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
+        obscureText: obscureInput,
         decoration: InputDecoration(
           prefixIcon: Icon(icon),
           labelText: hint,

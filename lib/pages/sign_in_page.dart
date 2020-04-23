@@ -97,6 +97,7 @@ class _SignInFormState extends State<SignInForm> {
             controller: passwordController,
             icon: Icons.lock,
             hint: 'Пароль',
+            obscureInput: true,
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(12.0),
             ),
