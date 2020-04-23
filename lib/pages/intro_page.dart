@@ -2,6 +2,7 @@ import 'package:enis/api/global.dart';
 import 'package:enis/api/hl_api.dart';
 import 'package:enis/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class IntroPage extends StatelessWidget {
   @override
@@ -44,7 +45,14 @@ class _IntroPageLoaderState extends State<IntroPageLoader> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CircularProgressIndicator(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          SvgPicture.asset('assets/nis_logo_dark.svg'),
+          SizedBox(height: 64.0),
+          CircularProgressIndicator(),
+        ],
+      ),
     );
   }
 }

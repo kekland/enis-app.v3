@@ -27,6 +27,7 @@ dependencies:
   http:
   shared_preferences:
   requests: ^3.1.0
+  circular_reveal_animation: ^1.1.5
 
 dev_dependencies:
   flutter_test:

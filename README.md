@@ -1,6 +1,6 @@
-# enis
+# eNIS
 
-A new Flutter project.
+An app for NIS students (version 3.0 or 4.0, I'm not sure which one it is)
 
 ## Getting Started
 

@@ -1,7 +1,10 @@
+import 'package:circular_reveal_animation/circular_reveal_animation.dart';
 import 'package:enis/api/data/diary_data.dart';
 import 'package:enis/api/data/student_data.dart';
 import 'package:enis/api/global.dart';
 import 'package:enis/api/hl_api.dart';
+import 'package:enis/components/quarter_picker_widget.dart';
+import 'package:enis/components/student_picker_widget.dart';
 import 'package:enis/components/subject_widget.dart';
 import 'package:enis/components/surface.dart';
 import 'package:enis/components/text_field.dart';
@@ -14,22 +17,32 @@ class GradesPage extends StatefulWidget {
   _GradesPageState createState() => _GradesPageState();
 }
 
-class _GradesPageState extends State<GradesPage>
-    with SingleTickerProviderStateMixin {
+class _GradesPageState extends State<GradesPage> with TickerProviderStateMixin {
   TabController controller;
-  bool isPickerVisible;
   int selectedQuarter;
   LoadedStudentData selectedStudent;
   Map<int, QuarterData> data;
 
+  AnimationController quarterPickerAnimationController;
+  Animation<double> quarterPickerAnimation;
+
   @override
   void initState() {
-    isPickerVisible = false;
     selectedQuarter = Global.prefs.getInt('selectedQuarter') ?? 0;
-    controller = new TabController(initialIndex: selectedQuarter, length: 4, vsync: this);
+    controller = new TabController(
+        initialIndex: selectedQuarter, length: 4, vsync: this);
+
+    quarterPickerAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 150),
+    );
+
+    quarterPickerAnimation = CurvedAnimation(
+        parent: quarterPickerAnimationController, curve: Curves.easeInOut);
+
+    quarterPickerAnimationController.addListener(() => setState(() => {}));
 
     reloadQuarterData();
-    
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       loadStudentData();
@@ -42,13 +55,18 @@ class _GradesPageState extends State<GradesPage>
     super.initState();
   }
 
+  dispose() {
+    quarterPickerAnimationController.dispose();
+    super.dispose();
+  }
+
   loadStudentData() async {
     if (Global.students == null) {
       runAsyncTaskWithoutIndicator(
         context: context,
         task: () async {
           Global.students = await HighLevelApi.getAllStudents();
-          setStudent(Global.students[0].data.id);
+          setStudent(Global.students[0]);
         },
       );
     }
@@ -66,9 +84,9 @@ class _GradesPageState extends State<GradesPage>
     if (reloadState) setState(() {});
   }
 
-  setStudent(String id) {
+  setStudent(LoadedStudentData student) {
     setState(() {
-      selectedStudent = Global.students.firstWhere((s) => s.data.id == id);
+      selectedStudent = student;
     });
 
     reloadQuarterData(true);
@@ -95,108 +113,86 @@ class _GradesPageState extends State<GradesPage>
 
   @override
   Widget build(BuildContext context) {
-    if (Global.students == null) {
-      return Center(
+    return AnimatedCrossFade(
+      duration: Duration(milliseconds: 300),
+      crossFadeState: Global.students != null
+          ? CrossFadeState.showSecond
+          : CrossFadeState.showFirst,
+      firstChild: Center(
         child: CircularProgressIndicator(),
-      );
-    }
-    return Stack(
-      children: <Widget>[
-        SingleChildScrollView(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              Surface(
-                padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-                child: BeautifulSelect(
-                  backgroundColor: Colors.transparent,
-                  selected: selectedStudent?.data?.id,
-                  icon: Icons.person,
-                  borderRadius: BorderRadius.circular(12.0),
-                  hint: 'Выберите ученика',
-                  onSelected: setStudent,
-                  items: Global.students
-                      .map(
-                        (student) => DropdownMenuItem(
-                          value: student.data.id,
-                          child: Text(
-                              '${student.classData.name} - ${student.data.name}'),
-                        ),
-                      )
-                      .cast<DropdownMenuItem>()
-                      .toList(),
-                ),
-              ),
-              SizedBox(height: 16.0),
-              if (data[selectedQuarter] == null)
-                CircularProgressIndicator()
-              else
-                ...data[selectedQuarter]
-                    .subjects
-                    .map(
-                      (data) => Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: SubjectWidget(data: data),
+      ),
+      secondChild: Global.students == null
+          ? Container()
+          : Stack(
+              children: <Widget>[
+                SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      StudentPickerWidget(
+                        students: Global.students,
+                        onSelected: (v) => setStudent(v),
+                        selected: selectedStudent,
                       ),
-                    )
-                    .cast<Widget>()
-                    .toList()
-            ],
-          ),
-        ),
-        if (!isPickerVisible)
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: FloatingActionButton.extended(
-                icon: Icon(Icons.timelapse),
-                elevation: 0.0,
-                label: Text(
-                  '${selectedQuarter + 1} четверть',
-                  style: context.textTheme.body1.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
+                      SizedBox(height: 16.0),
+                      if (data[selectedQuarter] == null) ...[
+                        SizedBox(height: 48.0),
+                        CircularProgressIndicator(),
+                      ] else
+                        ...data[selectedQuarter]
+                            .subjects
+                            .map(
+                              (data) => Padding(
+                                padding: const EdgeInsets.only(bottom: 16.0),
+                                child: SubjectWidget(data: data),
+                              ),
+                            )
+                            .cast<Widget>()
+                            .toList()
+                    ],
                   ),
                 ),
-                onPressed: () {
-                  setState(() => isPickerVisible = true);
-                },
-              ),
-            ),
-          ),
-        if (isPickerVisible)
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Surface(
-                padding: EdgeInsets.all(0.0),
-                child: Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: TabBar(
-                        controller: controller,
-                        tabs: [
-                          Tab(text: '1'),
-                          Tab(text: '2'),
-                          Tab(text: '3'),
-                          Tab(text: '4'),
-                        ],
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Transform.scale(
+                      scale: 1.0 - quarterPickerAnimation.value,
+                      child: FloatingActionButton.extended(
+                        icon: Icon(Icons.timelapse),
+                        elevation: 0.0,
+                        label: Text(
+                          '${selectedQuarter + 1} четверть',
+                          style: context.textTheme.body1.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        onPressed: () {
+                          quarterPickerAnimationController.forward();
+                        },
                       ),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.arrow_downward),
-                      onPressed: () {
-                        setState(() => isPickerVisible = false);
-                      },
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: CircularRevealAnimation(
+                      animation: quarterPickerAnimationController,
+                      centerAlignment: Alignment.centerRight,
+                      child: QuarterPickerWidget(
+                        controller: controller,
+                        onClose: () {
+                          quarterPickerAnimationController.reverse();
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-      ],
     );
   }
 }

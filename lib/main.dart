@@ -9,6 +9,7 @@ void main() {
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
+      systemNavigationBarColor: Colors.black,
     ),
   );
   runApp(MyApp());
