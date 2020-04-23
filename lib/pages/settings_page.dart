@@ -56,6 +56,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 SizedBox(
                   width: double.infinity,
                   child: RaisedButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
                     onPressed: () => HighLevelApi.logOut(context: context),
                     color: Colors.red,
                     textColor: Colors.white,

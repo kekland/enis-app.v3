@@ -131,6 +131,7 @@ class _SignInFormState extends State<SignInForm> {
               onPressed: isValid ? signIn : null,
               color: Colors.green,
               disabledColor: Colors.black12,
+              textColor: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),
