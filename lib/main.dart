@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -14,6 +15,8 @@ void main() {
       systemNavigationBarColor: Colors.black,
     ),
   );
+  SystemChrome.setEnabledSystemUIOverlays(
+      [SystemUiOverlay.top, SystemUiOverlay.bottom]);
   runApp(EnisApp());
 }
 
