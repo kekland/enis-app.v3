@@ -34,8 +34,8 @@ class _SignInFormState extends State<SignInForm> {
   String selectedSchoolKey;
 
   initState() {
-    usernameController = TextEditingController(text: '020421500643');
-    passwordController = TextEditingController(text: 'Qwedcxza21');
+    usernameController = TextEditingController();
+    passwordController = TextEditingController();
     selectedSchoolKey = null;
 
     usernameController.addListener(() => setState(() => {}));
@@ -126,6 +126,7 @@ class _SignInFormState extends State<SignInForm> {
               label: Text('Войти'),
               onPressed: isValid ? signIn : null,
               color: Colors.green,
+              disabledColor: Colors.black12,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.0),
               ),

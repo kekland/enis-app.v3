@@ -19,7 +19,9 @@ class BeautifulTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black12,
+        color: context.theme.brightness == Brightness.light
+            ? Colors.black.withOpacity(0.05)
+            : Colors.black12,
         borderRadius: borderRadius,
       ),
       padding: const EdgeInsets.symmetric(
@@ -63,7 +65,10 @@ class BeautifulSelect extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: backgroundColor ?? Colors.black12,
+        color: backgroundColor ??
+            (context.theme.brightness == Brightness.light
+                ? Colors.black.withOpacity(0.05)
+                : Colors.black12),
         borderRadius: borderRadius,
       ),
       padding: const EdgeInsets.symmetric(

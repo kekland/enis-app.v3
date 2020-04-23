@@ -30,6 +30,7 @@ dependencies:
   circular_reveal_animation: ^1.1.5
 
 dev_dependencies:
+  flutter_native_splash: ^0.1.9
   flutter_launcher_icons: "^0.7.3"
   flutter_test:
     sdk: flutter
@@ -87,3 +88,7 @@ flutter_icons:
   image_path: "assets/app_logo_ios.png"
   adaptive_icon_background: #000000
   adaptive_icon_fireground: "assets/app_logo_png.png"
+
+flutter_native_splash:
+  image: assets/app_logo_png.png
+  color: "#000000"
