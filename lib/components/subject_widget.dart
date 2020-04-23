@@ -1,12 +1,18 @@
 import 'package:enis/api/data/diary_data.dart';
 import 'package:enis/components/percent_widget.dart';
+import 'package:enis/components/subject_expanded_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:enis/extensions.dart';
 
 class SubjectWidget extends StatelessWidget {
   final SubjectData data;
+  final bool clickable;
 
-  const SubjectWidget({Key key, this.data}) : super(key: key);
+  const SubjectWidget({
+    Key key,
+    this.data,
+    this.clickable = true,
+  }) : super(key: key);
 
   Color get lineColor {
     if (data.score >= 85.0) {
@@ -36,7 +42,16 @@ class SubjectWidget extends StatelessWidget {
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
-          onTap: () {},
+          onTap: clickable
+              ? () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (_) => SubjectExpandedWidget(
+                      data: data,
+                    ),
+                  );
+                }
+              : null,
           borderRadius: BorderRadius.circular(12.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12.0),

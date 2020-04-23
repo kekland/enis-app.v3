@@ -69,3 +69,34 @@ class GradeWidget extends StatelessWidget {
     );
   }
 }
+
+class AssessmentWidget extends StatelessWidget {
+  final int score;
+  final int maxScore;
+
+  const AssessmentWidget({Key key, this.score, this.maxScore})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      children: [
+        Text(
+          '$score',
+          style: TextStyle(
+            fontSize: 28.0,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        Text(
+          '/$maxScore',
+          style: TextStyle(
+            color: context.textTheme.caption.color,
+          ),
+        ),
+      ],
+    );
+  }
+}
