@@ -1,4 +1,4 @@
-package com.example.enis
+package com.kekland.enis
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
