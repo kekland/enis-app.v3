@@ -1,4 +1,5 @@
 import 'package:enis/pages/grades_page.dart';
+import 'package:enis/pages/settings_page.dart';
 import 'package:enis/pages/timetable_page.dart';
 import 'package:flutter/material.dart';
 import 'package:enis/extensions.dart';
@@ -26,8 +27,13 @@ class _MainPageState extends State<MainPage> {
         elevation: 0.0,
         actions: [
           IconButton(
-            icon: Icon(Icons.more_vert),
-            onPressed: () {},
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (_) => SettingsPage(),
+              );
+            },
           ),
         ],
       ),

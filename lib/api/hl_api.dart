@@ -3,6 +3,8 @@ import 'package:enis/api/data/diary_data.dart';
 import 'package:enis/api/data/schedule_data.dart';
 import 'package:enis/api/data/student_data.dart';
 import 'package:enis/api/data/user_data.dart';
+import 'package:enis/api/global.dart';
+import 'package:flutter/material.dart';
 
 class HighLevelApi {
   static Future<void> signIn({UserData userData}) {
@@ -77,5 +79,11 @@ class HighLevelApi {
       subjectData: subject,
       evaluationData: evaluationExpandedDataList,
     );
+  }
+
+  static Future logOut({BuildContext context}) async {
+    await Global.clear();
+    Navigator.of(context).popUntil((v) => v.isFirst);
+    Navigator.of(context).pushReplacementNamed('/auth');
   }
 }

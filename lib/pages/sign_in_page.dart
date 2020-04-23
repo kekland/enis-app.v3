@@ -1,6 +1,7 @@
 import 'package:enis/api/data/user_data.dart';
 import 'package:enis/api/hl_api.dart';
 import 'package:enis/api/schools.dart';
+import 'package:enis/components/app_logo_text.dart';
 import 'package:enis/components/text_field.dart';
 import 'package:enis/utils.dart';
 import 'package:flutter/material.dart';
@@ -79,28 +80,7 @@ class _SignInFormState extends State<SignInForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text(
-                'eNIS',
-                style: TextStyle(
-                  fontSize: 36.0,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white54,
-                ),
-              ),
-              Text(
-                'v3.0',
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white24,
-                ),
-              ),
-            ],
-          ),
+          AppLogoTextWidget(),
           SizedBox(height: 16.0),
           BeautifulTextField(
             controller: usernameController,
