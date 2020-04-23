@@ -92,7 +92,7 @@ class Api {
     Parallel parallel,
   }) async {
     final body = await makeRequest(
-      '/JceDiary/GetParallels',
+      '/JceDiary/GetKlasses',
       body: {
         "periodId": period.id,
         "parallelId": parallel.id,

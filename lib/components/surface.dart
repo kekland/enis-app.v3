@@ -17,6 +17,13 @@ class Surface extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.theme.primaryColor,
         borderRadius: BorderRadius.circular(12.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            offset: Offset(0.0, 8.0),
+            blurRadius: 12.0,
+          )
+        ],
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12.0),

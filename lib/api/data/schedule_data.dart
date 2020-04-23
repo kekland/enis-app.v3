@@ -4,7 +4,7 @@ class ScheduleData {
   ScheduleData({this.days});
 
   factory ScheduleData.fromJson(List<dynamic> json) {
-    List<ScheduleDataForDay> days;
+    List<ScheduleDataForDay> days = <ScheduleDataForDay>[];
 
     for (int i = 0; i < 6; i++)
       days.add(ScheduleDataForDay(subjects: <ScheduleSubject>[]));

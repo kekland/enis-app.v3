@@ -54,9 +54,12 @@ class QuarterData {
 
   factory QuarterData.fromJson(List<dynamic> json) {
     return QuarterData(
-      subjects: json.map(
-        (subject) => SubjectData.fromJson(subject),
-      ),
+      subjects: json
+          .map(
+            (subject) => SubjectData.fromJson(subject),
+          )
+          .cast<SubjectData>()
+          .toList(),
     );
   }
 }

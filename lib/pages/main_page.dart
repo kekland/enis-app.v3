@@ -9,15 +9,11 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final List<Widget> bodyViews = [
-    GradesPage(),
-    TimetablePage(),
-  ];
   int currentPage = 0;
 
   @override
   void initState() {
-      currentPage = 0;
+    currentPage = 0;
     super.initState();
   }
 
@@ -35,7 +31,18 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      body: bodyViews[currentPage],
+      body: Stack(
+        children: [
+          Offstage(
+            offstage: currentPage != 0,
+            child: GradesPage(),
+          ),
+          Offstage(
+            offstage: currentPage != 1,
+            child: TimetablePage(),
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: context.theme.primaryColor,
         selectedItemColor: context.theme.accentColor,

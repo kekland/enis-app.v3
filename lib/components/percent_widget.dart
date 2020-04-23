@@ -48,22 +48,24 @@ class GradeWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
-      children: [
-        Text(
-          'оценка ',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: context.textTheme.caption.color,
-          ),
-        ),
-        Text(
-          'A+',
-          style: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
+      children: grade == 0
+          ? []
+          : [
+              Text(
+                'оценка ',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: context.textTheme.caption.color,
+                ),
+              ),
+              Text(
+                '$grade',
+                style: TextStyle(
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
     );
   }
 }

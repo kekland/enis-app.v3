@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:enis/extensions.dart';
 
 class BeautifulTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -44,6 +45,7 @@ class BeautifulSelect extends StatelessWidget {
   final String selected;
   final Function(String) onSelected;
   final List<DropdownMenuItem> items;
+  final Color backgroundColor;
 
   const BeautifulSelect({
     Key key,
@@ -53,6 +55,7 @@ class BeautifulSelect extends StatelessWidget {
     this.items,
     this.selected,
     this.onSelected,
+    this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -60,7 +63,7 @@ class BeautifulSelect extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.black12,
+        color: backgroundColor ?? Colors.black12,
         borderRadius: borderRadius,
       ),
       padding: const EdgeInsets.symmetric(
@@ -71,7 +74,12 @@ class BeautifulSelect extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           SizedBox(width: 12.0),
-          Icon(icon, color: Colors.white70),
+          Icon(
+            icon,
+            color: context.theme.brightness == Brightness.dark
+                ? Colors.white70
+                : Colors.black54,
+          ),
           SizedBox(width: 12.0),
           Flexible(
             child: DropdownButton(

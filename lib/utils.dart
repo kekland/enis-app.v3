@@ -76,3 +76,15 @@ Future<void> runAsyncTask({
     }
   }
 }
+
+Future<void> runAsyncTaskWithoutIndicator({
+  BuildContext context,
+  Future Function() task,
+}) async {
+  try {
+    await task();
+  } catch (e) {
+    showScaffoldError(context, e);
+  }
+}
+

@@ -1,8 +1,23 @@
+import 'package:enis/api/data/diary_data.dart';
 import 'package:enis/components/percent_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:enis/extensions.dart';
 
 class SubjectWidget extends StatelessWidget {
+  final SubjectData data;
+
+  const SubjectWidget({Key key, this.data}) : super(key: key);
+
+  Color get lineColor {
+    if (data.score >= 85.0) {
+      return Colors.green;
+    } else if (data.score >= 65.0) {
+      return Colors.yellow;
+    } else {
+      return Colors.red;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,7 +48,7 @@ class SubjectWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Физическая культура',
+                        data.name,
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.w500,
@@ -43,17 +58,17 @@ class SubjectWidget extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          PercentWidget(percentage: 90.87),
-                          GradeWidget(grade: 5),
+                          PercentWidget(percentage: data.score),
+                          GradeWidget(grade: data.mark),
                         ],
                       ),
                     ],
                   ),
                 ),
                 LinearProgressIndicator(
-                  backgroundColor: Colors.yellow.withOpacity(0.25),
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
-                  value: 90.87 / 100.0,
+                  backgroundColor: lineColor.withOpacity(0.25),
+                  valueColor: AlwaysStoppedAnimation<Color>(lineColor),
+                  value: data.score / 100.0,
                 ),
               ],
             ),
