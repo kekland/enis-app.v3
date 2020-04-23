@@ -70,9 +70,9 @@ Future<void> runAsyncTask({
     showScaffoldError(context, e);
   } finally {
     if (shouldPop) {
-      await Future.delayed(Duration.zero, () {
+      /* await Future.delayed(Duration.zero, () {
         Navigator.of(context).pop(true);
-      });
+      }); */
     }
   }
 }

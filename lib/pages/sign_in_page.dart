@@ -62,7 +62,9 @@ class _SignInFormState extends State<SignInForm> {
           ),
         );
 
-        Navigator.of(context).pushReplacementNamed('/main');
+        Navigator.of(context)
+          ..popUntil((r) => r.isFirst)
+          ..pushReplacementNamed('/main');
       },
     );
   }
@@ -86,6 +88,7 @@ class _SignInFormState extends State<SignInForm> {
             controller: usernameController,
             icon: Icons.account_circle,
             hint: 'ИИН',
+            inputType: TextInputType.number,
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(12.0),
             ),

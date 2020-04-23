@@ -31,6 +31,7 @@ class Api {
       headers: headers,
       bodyEncoding: RequestBodyEncoding.JSON,
       persistCookies: true,
+      verify: false,
     );
 
     response.raiseForStatus();

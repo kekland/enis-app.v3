@@ -7,6 +7,7 @@ class BeautifulTextField extends StatelessWidget {
   final String hint;
   final IconData icon;
   final bool obscureInput;
+  final TextInputType inputType;
 
   const BeautifulTextField({
     Key key,
@@ -15,6 +16,7 @@ class BeautifulTextField extends StatelessWidget {
     this.icon,
     this.controller,
     this.obscureInput = false,
+    this.inputType = TextInputType.text,
   }) : super(key: key);
 
   @override
@@ -33,6 +35,7 @@ class BeautifulTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: obscureInput,
+        keyboardType: inputType,
         decoration: InputDecoration(
           prefixIcon: Icon(icon),
           labelText: hint,
